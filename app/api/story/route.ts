@@ -41,31 +41,31 @@ Implementing this user story will improve the shopping experience for customers 
 This user story is a basic building block for the online shopping platform. Further enhancements may include the ability to edit quantities, remove items, and apply discounts.`
 
 const storyExampleJSON = `{
-  story_title: 'Online Shopping Cart',
-  story_description: 'As a customer, I want to add products to my shopping cart so that I can easily keep track of my selected items.',
-  acceptance_criteria: [
+  "story_title": "Online Shopping Cart",
+  "story_description": "As a customer, I want to add products to my shopping cart so that I can easily keep track of my selected items.",
+  "acceptance_criteria": [
     "The user should be able to view the product details and click an 'Add to Cart' button.",
-    'Once added, the product should appear in the shopping cart with the correct quantity and price.'
+    "Once added, the product should appear in the shopping cart with the correct quantity and price."
   ],
-  user_personas: [
+  "user_personas": [
     {
-      name: 'Alex',
-      description: 'An onlinesavvy customer who frequently shops for various products.',
-      characteristics_goals: 'Wants a convenient way to organize selected items for purchase.'
+      "name": "Alex",
+      "description": "An onlinesavvy customer who frequently shops for various products.",
+      "characteristics_goals": "Wants a convenient way to organize selected items for purchase."
     },
     {
-      name: 'Sarah',
-      description: 'A busy individual who wants to browse products and return later to complete the purchase.',
-      characteristics_goals: 'Desires a seamless process to add and review products in the cart.'
+      "name": "Sarah",
+      "description": "A busy individual who wants to browse products and return later to complete the purchase.",
+      "characteristics_goals": "Desires a seamless process to add and review products in the cart."
     }
   ],
-  value_to_users_stakeholders: 'Implementing this user story will improve the shopping experience for customers like Alex and Sarah. It will lead to increased customer satisfaction, higher chances of completing purchases, and ultimately boost revenue for the online store.',
-  story_size: 'Small',
-  dependencies: 'The product catalog and inventory systems must be in place.',
-  non_functional_requirements: [
-    'The shopping cart interface should be responsive and work well on both desktop and mobile devices.'
+  "value_to_users_stakeholders": "Implementing this user story will improve the shopping experience for customers like Alex and Sarah. It will lead to increased customer satisfaction, higher chances of completing purchases, and ultimately boost revenue for the online store.",
+  "story_size": "Small",
+  "dependencies": "The product catalog and inventory systems must be in place.",
+  "non_functional_requirements": [
+    "The shopping cart interface should be responsive and work well on both desktop and mobile devices."
   ],
-  notes: 'This user story is a basic building block for the online shopping platform. Further enhancements may include the ability to edit quantities, remove items, and apply discounts.'
+  "notes": "This user story is a basic building block for the online shopping platform. Further enhancements may include the ability to edit quantities, remove items, and apply discounts."
 }`;
 
 const userStoryJSONSchema = {
@@ -216,7 +216,7 @@ export async function POST(request: NextRequest) {
 
   console.log('User story:', userStory);
 
-  const props = Object.keys(JSON.parse(userStory)).join(", ");
+  const props = Object.keys(JSON.parse(storyExampleJSON)).join(", ");
 
   const chatCompletionResponse = await openai.createChatCompletion({
     model: "gpt-3.5-turbo-0613",

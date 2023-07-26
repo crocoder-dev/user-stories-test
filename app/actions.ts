@@ -5,8 +5,9 @@ export async function setData(data: FormData) {
 
   console.log(story);
 
-  const response = await fetch(`http://localhost:3000/api/story`, {
+  const response = await fetch(`${process.env.SITE_URL}/api/story`, {
     method: "POST",
+    cache: 'no-store',
     headers: {
       "Content-Type": "application/json",
       Authorization: process.env.API_KEY!,

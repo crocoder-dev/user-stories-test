@@ -25,7 +25,7 @@ export default function Home() {
         </div>
         <button type="submit">Check story</button>
       </form>
-      <div className="flex flex-col gap-4 h-fit w-[800px]">
+      <div className="flex flex-col mt-4 gap-4 h-fit w-[800px]">
         {(suggestions).map((prop, i) => {
           if (!prop['should_be_changed']) {
             return null;
