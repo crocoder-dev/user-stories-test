@@ -12,7 +12,7 @@ export async function setData(data: FormData) {
       "Content-Type": "application/json",
       Authorization: process.env.API_KEY!,
     },
-    body: JSON.stringify(story),
+    body: story,
   });
 
   const responseData = await response.json();
