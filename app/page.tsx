@@ -31,7 +31,19 @@ export default function Home() {
             return null;
           }
           if (prop['property_reference'] === 'user_personas') {
-            return <div key={i}><strong>{prop['title']}: </strong>{JSON.stringify(prop['new_content'], null, 2)}</div>
+            return <div key={i}>
+              <strong>{prop['title']}: </strong>
+              {(prop['new_content'] as {name: string, description: string, characteristics_goals: string}[]).map((e, ix) => {
+                const keys = Object.keys(e);
+
+                return <div className="ml-2" key={e.name}>
+                  <div><strong>Name: </strong>{e.name}</div>
+                  <div className="ml-2"><strong>Description: </strong>{e.description}</div>
+                  <div className="ml-2"><strong>Characteristics goals: </strong>{e.characteristics_goals}</div>
+                </div>
+              })}
+            </div>
+            // return <div key={i}><strong>{prop['title']}: </strong>{JSON.stringify(prop['new_content'], null, 2)}</div>
           }
           return <div key={i}><strong>{prop['title']}: </strong>{prop['new_content']}</div>
         })}
