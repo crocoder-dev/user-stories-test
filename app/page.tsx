@@ -33,8 +33,7 @@ export default function Home() {
           if (prop['property_reference'] === 'user_personas') {
             return <div key={i}>
               <strong>{prop['title']}: </strong>
-              {(prop['new_content'] as {name: string, description: string, characteristics_goals: string}[]).map((e, ix) => {
-                const keys = Object.keys(e);
+              {(prop['new_content'] as {name: string, description: string, characteristics_goals: string}[]).map((e) => {
 
                 return <div className="ml-2" key={e.name}>
                   <div><strong>Name: </strong>{e.name}</div>

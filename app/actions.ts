@@ -1,7 +1,5 @@
 "use server";
-import { NextRequest, NextResponse } from 'next/server';
 import { Configuration, OpenAIApi } from 'openai';
-import { headers } from 'next/headers';
 import { z } from 'zod';
 
 const api_key = process.env.API_KEY;
