@@ -5,9 +5,12 @@ import { setData } from "./actions";
 
 export default function Home() {
   const [suggestions, setSuggestions] = useState([])
+  const [loading, setLoading] = useState(false);
 
   async function formAction(data: FormData) {
+    setLoading(true);
     const response = await setData(data);
+    setLoading(false);
     console.log(response);
     setSuggestions(JSON.parse(response)["suggestions"]);
   }
@@ -26,6 +29,7 @@ export default function Home() {
         <button type="submit">Check story</button>
       </form>
       <div className="flex flex-col mt-4 gap-4 h-fit w-[800px]">
+        {loading ? <strong>Loading...</strong> : null}
         {(suggestions).map((prop, i) => {
           if (!prop['should_be_changed']) {
             return null;
