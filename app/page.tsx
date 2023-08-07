@@ -16,6 +16,7 @@ export default function Home() {
 
   const formSubmit = () => {
     setLoading(true);
+    setSuggestions([])
   }
 
   return (
