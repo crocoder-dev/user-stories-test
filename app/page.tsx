@@ -8,16 +8,19 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   async function formAction(data: FormData) {
-    setLoading(true);
     const response = await setData(data);
     setLoading(false);
     console.log(response);
     setSuggestions(JSON.parse(response)["suggestions"]);
   }
 
+  const formSubmit = () => {
+    setLoading(true);
+  }
+
   return (
     <div className="bg-gradient-radial flex flex-col min-h-screen w-full items-center justify-start from-blue-900 to-slate-900 text-white">
-      <form action={formAction} className="mt-0 flex h-fit w-[800px] flex-col gap-4 rounded-none bg-slate-900 py-4 px-6 opacity-80 shadow-2xl sm:mt-4 sm:rounded-xl">
+      <form action={formAction} onSubmit={formSubmit} className="mt-0 flex h-fit w-[800px] flex-col gap-4 rounded-none bg-slate-900 py-4 px-6 opacity-80 shadow-2xl sm:mt-4 sm:rounded-xl">
         <div className="flex flex-col gap-1">
           <label>User story:</label>
           <textarea

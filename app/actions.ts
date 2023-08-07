@@ -176,6 +176,8 @@ const schema = {
 export async function setData(data: FormData) {
   const story = data.get("story");
 
+  console.log("User Story text: ", story);
+
   const gpt35turboResponse = z.object({
     data: z.object({
       choices: z.object({
@@ -207,7 +209,7 @@ export async function setData(data: FormData) {
 
   const userStory = gpt35turboResponse.parse(chatCompletionResponseTextToJSON).data.choices[0]?.message.function_call?.arguments;
 
-  console.log('User story:', userStory);
+  console.log('User story JSON:', userStory);
 
   const props = Object.keys(JSON.parse(storyExampleJSON)).join(", ");
 
@@ -241,6 +243,8 @@ export async function setData(data: FormData) {
   });
 
   const chatCompletion = gpt35turboResponse.parse(chatCompletionResponse).data.choices[0]?.message.function_call?.arguments;
+
+  console.log("OpenAI response: ", chatCompletion);
 
   if(!chatCompletion) {
     throw new Error('User story couldn\'t be open-aied.');
