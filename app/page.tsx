@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { setData } from "./actions";
 
-const example1 = `Template: ### Story Title: Online Shopping Cart
+const examples = [
+  `Template: ### Story Title: Online Shopping Cart
 ### Story Description:
 As a customer, I want to add products to my shopping cart so that I can easily keep track of my selected items.
 ### Acceptance Criteria:
@@ -23,9 +24,8 @@ Implementing this user story will improve the shopping experience for customers 
 ### Non-Functional Requirements:
 - The shopping cart interface should be responsive and work well on both desktop and mobile devices.
 ### Notes:
-This user story is a basic building block for the online shopping platform. Further enhancements may include the ability to edit quantities, remove items, and apply discounts.`
-
-const example2 = `Story Title: Sign Up Thing
+This user story is a basic building block for the online shopping platform. Further enhancements may include the ability to edit quantities, remove items, and apply discounts.`,
+  `Story Title: Sign Up Thing
 Story Description:
 
 Like, I'm a user or whatever, and I guess I want to sign up on this site or app. I heard people talk about profiles and stuff, so I guess I need one.
@@ -51,9 +51,8 @@ Non-Functional Requirements:
 It should, like, work on phones and computers, I think.
 Notes:
 
-I don't really get why we need to do this, but people seem to like profiles and signing up, so whatever.`
-
-const example3 = `Story Title: Notification Preferences
+I don't really get why we need to do this, but people seem to like profiles and signing up, so whatever.`,
+  `Story Title: Notification Preferences
 Story Description:
 
 As a user, I want to customize my notification settings so that I receive relevant updates and alerts.
@@ -76,9 +75,8 @@ Value to Users/Stakeholders:
 
 Implementing this user story will lead to improved user satisfaction by providing a personalized notification experience. Chris and Taylor will both benefit from receiving the right notifications at the right time, leading to increased user engagement.
 Story Size: Medium
-Dependencies: The notification system needs to be in place.`
-
-const example4 = `Story Title: Wishlist Creation
+Dependencies: The notification system needs to be in place.`,
+  `Story Title: Wishlist Creation
 Story Description:
 
 As a user, I want to create and manage a wishlist of items I'm interested in purchasing in the future.
@@ -101,10 +99,11 @@ Value to Users/Stakeholders:
 
 Implementing this user story will enhance the user experience for users like Jordan and Morgan, enabling them to curate a list of products they intend to buy. This can lead to increased user loyalty and eventual conversions.
 Story Size: Small to Medium
-Dependencies: The product catalog system must be functional.`
+Dependencies: The product catalog system must be functional.`,
+];
 
 export default function Home() {
-  const [suggestions, setSuggestions] = useState([])
+  const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showExamples, setShowExamples] = useState(false);
 
@@ -118,15 +117,19 @@ export default function Home() {
   const formSubmit = () => {
     setLoading(true);
     setSuggestions([]);
-  }
+  };
 
   const showUserStoryExaples = () => {
-    setShowExamples(!showExamples)
-  }
+    setShowExamples(!showExamples);
+  };
 
   return (
     <div className="bg-gradient-radial flex flex-col min-h-screen w-full items-center justify-start from-blue-900 to-slate-900 text-white">
-      <form action={formAction} onSubmit={formSubmit} className="mt-0 flex h-fit w-[800px] flex-col gap-4 rounded-none bg-slate-900 py-4 px-6 opacity-80 shadow-2xl sm:mt-4 sm:rounded-xl">
+      <form
+        action={formAction}
+        onSubmit={formSubmit}
+        className="mt-0 flex h-fit w-[800px] flex-col gap-4 rounded-none bg-slate-900 py-4 px-6 opacity-80 shadow-2xl sm:mt-4 sm:rounded-xl"
+      >
         <div className="flex flex-col">
           <label>User story:</label>
           <textarea
@@ -137,44 +140,71 @@ export default function Home() {
         </div>
         <button type="submit">Check story</button>
       </form>
-      <button className="border-slate-600 border-2 mt-4 rounded-md py-2 px-4" onClick={showUserStoryExaples}>{showExamples ? 'Hide' : 'Show'} user story examples</button>
-      {
-        showExamples ? 
+      <button
+        className="border-slate-600 border-2 mt-4 rounded-md py-2 px-4"
+        onClick={showUserStoryExaples}
+      >
+        {showExamples ? "Hide" : "Show"} user story examples
+      </button>
+      {showExamples ? (
         <div className="flex flex-col gap-3 py-4 px-6">
-          Example 1:
-          <textarea defaultValue={example1} className="h-[400px] w-[800px] rounded-lg border-2 border-slate-600 bg-slate-800 py-2 px-4 focus:outline-none" name="" id=""/>
-          Example 2 (badly written user story):
-          <textarea defaultValue={example2} className="h-[400px] w-[800px] rounded-lg border-2 border-slate-600 bg-slate-800 py-2 px-4 focus:outline-none" name="" id=""/>
-          Example 3:
-          <textarea defaultValue={example3} className="h-[400px] w-[800px] rounded-lg border-2 border-slate-600 bg-slate-800 py-2 px-4 focus:outline-none" name="" id=""/>
-          Example 4:
-          <textarea defaultValue={example4} className="h-[400px] w-[800px] rounded-lg border-2 border-slate-600 bg-slate-800 py-2 px-4 focus:outline-none" name="" id=""/>
-        </div> : null
-      }
+          {examples.map((e, i) => (
+            <div className="flex flex-col" key={i}>
+              Example {i + 1}:
+              <textarea
+                defaultValue={e}
+                className="h-[400px] w-[800px] rounded-lg border-2 border-slate-600 bg-slate-800 py-2 px-4 focus:outline-none"
+                name=""
+                id=""
+              />
+            </div>
+          ))}
+        </div>
+      ) : null}
       <div className="flex flex-col p-4 gap-4 h-fit w-[800px]">
         <div>Response:</div>
         {loading ? <strong>Loading...</strong> : null}
-        {(suggestions).map((prop, i) => {
-          if (!prop['should_be_changed']) {
+        {suggestions.map((prop, i) => {
+          if (!prop["should_be_changed"]) {
             return null;
           }
-          if (prop['property_reference'] === 'user_personas') {
-            return <div key={i}>
-              <strong>{prop['title']}: </strong>
-              {(prop['new_content'] as {name: string, description: string, characteristics_goals: string}[]).map((e) => {
-
-                return <div className="ml-2" key={e.name}>
-                  <div><strong>Name: </strong>{e.name}</div>
-                  <div className="ml-2"><strong>Description: </strong>{e.description}</div>
-                  <div className="ml-2"><strong>Characteristics goals: </strong>{e.characteristics_goals}</div>
-                </div>
-              })}
-            </div>
+          if (prop["property_reference"] === "user_personas") {
+            return (
+              <div key={i}>
+                <strong>{prop["title"]}: </strong>
+                {(
+                  prop["new_content"] as {
+                    name: string;
+                    description: string;
+                    characteristics_goals: string;
+                  }[]
+                ).map((e) => {
+                  return (
+                    <div className="ml-2" key={e.name}>
+                      <div>
+                        <strong>Name: </strong>{e.name}
+                      </div>
+                      <div className="ml-2">
+                        <strong>Description: </strong>{e.description}
+                      </div>
+                      <div className="ml-2">
+                        <strong>Characteristics goals: </strong>{e.characteristics_goals}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
             // return <div key={i}><strong>{prop['title']}: </strong>{JSON.stringify(prop['new_content'], null, 2)}</div>
           }
-          return <div key={i}><strong>{prop['title']}: </strong>{prop['new_content']}</div>
+          return (
+            <div key={i}>
+              <strong>{prop["title"]}: </strong>
+              {prop["new_content"]}
+            </div>
+          );
         })}
       </div>
     </div>
-  )
+  );
 }
