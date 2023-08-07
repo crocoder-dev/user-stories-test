@@ -151,7 +151,8 @@ export default function Home() {
           <textarea defaultValue={example4} className="h-[400px] w-[800px] rounded-lg border-2 border-slate-600 bg-slate-800 py-2 px-4 focus:outline-none" name="" id=""/>
         </div> : null
       }
-      <div className="flex flex-col mt-4 gap-4 h-fit w-[800px]">
+      <div className="flex flex-col p-4 gap-4 h-fit w-[800px]">
+        <div>Response:</div>
         {loading ? <strong>Loading...</strong> : null}
         {(suggestions).map((prop, i) => {
           if (!prop['should_be_changed']) {
