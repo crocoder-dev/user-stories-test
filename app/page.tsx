@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { setData } from "./actions";
+import Suggestions from "./components/Suggestions";
 
 const examples = [
   `Template: ### Story Title: Online Shopping Cart
@@ -119,7 +120,7 @@ export default function Home() {
     setSuggestions([]);
   };
 
-  const showUserStoryExaples = () => {
+  const showUserStoryExamples = () => {
     setShowExamples(!showExamples);
   };
 
@@ -142,7 +143,7 @@ export default function Home() {
       </form>
       <button
         className="border-slate-600 border-2 mt-4 rounded-md py-2 px-4"
-        onClick={showUserStoryExaples}
+        onClick={showUserStoryExamples}
       >
         {showExamples ? "Hide" : "Show"} user story examples
       </button>
@@ -164,46 +165,7 @@ export default function Home() {
       <div className="flex flex-col p-4 gap-4 h-fit w-[800px]">
         <div>Response:</div>
         {loading ? <strong>Loading...</strong> : null}
-        {suggestions.map((prop, i) => {
-          if (!prop["should_be_changed"]) {
-            return null;
-          }
-          if (prop["property_reference"] === "user_personas") {
-            return (
-              <div key={i}>
-                <strong>{prop["title"]}: </strong>
-                {(
-                  prop["new_content"] as {
-                    name: string;
-                    description: string;
-                    characteristics_goals: string;
-                  }[]
-                ).map((e) => {
-                  return (
-                    <div className="ml-2" key={e.name}>
-                      <div>
-                        <strong>Name: </strong>{e.name}
-                      </div>
-                      <div className="ml-2">
-                        <strong>Description: </strong>{e.description}
-                      </div>
-                      <div className="ml-2">
-                        <strong>Characteristics goals: </strong>{e.characteristics_goals}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            );
-            // return <div key={i}><strong>{prop['title']}: </strong>{JSON.stringify(prop['new_content'], null, 2)}</div>
-          }
-          return (
-            <div key={i}>
-              <strong>{prop["title"]}: </strong>
-              {prop["new_content"]}
-            </div>
-          );
-        })}
+        <Suggestions suggestions={suggestions}/>
       </div>
     </div>
   );
