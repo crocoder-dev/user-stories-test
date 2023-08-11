@@ -225,6 +225,7 @@ export async function setData(data: FormData) {
           'I want to rewrite the user story to be more understandable and make it follow the rules.',
           'You should generate a list of suggestions for the user story.',
           `"property_reference" should contain one of the properties from the userStory (${props}).`,
+          `"title" should be similar to "property_reference".`,
           'You can create multiple suggestions for each property of the user story.',
           '"change_importance" value of 7 is very important, while 1 is not important at all.',
           'If you think that creator of user story should be notified about this change, set "should_be_changed" to true.',

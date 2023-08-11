@@ -24,7 +24,7 @@ export default function Suggestions({suggestions}: {suggestions: any[]}) {
                       </div>
                     );
                   } else {
-                    return <span key={prop["title"] + i}>{e}&nbsp;</span>
+                    return <div key={prop["title"] + i}>{e}</div>
                   }
                 })}
               </div>
