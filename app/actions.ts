@@ -226,6 +226,8 @@ export async function setData(data: FormData) {
           'You should generate a list of suggestions for the user story.',
           `"property_reference" should contain one of the properties from the userStory (${props}).`,
           `"title" should be similar to "property_reference".`,
+          `If some of the properties of user stories are missing add a suggestion for them.`,
+          `If the user story is badly written then suggestions can change the whole user story.`,
           'You can create multiple suggestions for each property of the user story.',
           '"change_importance" value of 7 is very important, while 1 is not important at all.',
           'If you think that creator of user story should be notified about this change, set "should_be_changed" to true.',
