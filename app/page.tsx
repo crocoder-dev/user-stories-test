@@ -113,6 +113,7 @@ export default function Home() {
     setLoading(false);
     console.log(response);
     setSuggestions(JSON.parse(response)["suggestions"]);
+    console.log(JSON.parse(response)["suggestions"]);
   }
 
   const formSubmit = () => {

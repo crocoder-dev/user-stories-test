@@ -1,7 +1,7 @@
 export default function Suggestions({suggestions}: {suggestions: any[]}) {
     return <div>
         {suggestions.map((prop, i) => {
-          if (!prop["should_be_changed"]) {
+          if (!prop["should_be_changed"] == undefined && !prop["should_be_changed"]) {
             return null;
           }
           if (Array.isArray(prop["new_content"])) {

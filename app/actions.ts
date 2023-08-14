@@ -188,28 +188,28 @@ export async function setData(data: FormData) {
     })
   });
 
-  const chatCompletionResponseTextToJSON = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo-0613",
-    //model: "gpt-4-0613",
-    messages: [
-      { "role": "system", "content": "You are an user story text to JSON converter program." },
-      {
-        "role": "system", "content": [
-          'You are given a user story in text format.',
-          'You will convert the text of user story to JSON format.',
-          `This is an example of user story text: "${storyExample}" and this is JSON output example ${storyExampleJSON}`,
-        ].join(" ")
-      },
-      { "role": "user", "content": `Convert following user story text to JSON: ${story}` }
-    ],
-    functions: [{ "name": "convert_user_story", "parameters": userStoryJSONSchema }],
-    function_call: { "name": "convert_user_story" },
-    temperature: 0,
-  });
+  // const chatCompletionResponseTextToJSON = await openai.createChatCompletion({
+  //   model: "gpt-3.5-turbo-0613",
+  //   //model: "gpt-4-0613",
+  //   messages: [
+  //     { "role": "system", "content": "You are an user story text to JSON converter program." },
+  //     {
+  //       "role": "system", "content": [
+  //         'You are given a user story in text format.',
+  //         'You will convert the text of user story to JSON format.',
+  //         `This is an example of user story text: "${storyExample}" and this is JSON output example ${storyExampleJSON}`,
+  //       ].join(" ")
+  //     },
+  //     { "role": "user", "content": `Convert following user story text to JSON: ${story}` }
+  //   ],
+  //   functions: [{ "name": "convert_user_story", "parameters": userStoryJSONSchema }],
+  //   function_call: { "name": "convert_user_story" },
+  //   temperature: 0,
+  // });
 
-  const userStory = gpt35turboResponse.parse(chatCompletionResponseTextToJSON).data.choices[0]?.message.function_call?.arguments;
+  // const userStory = gpt35turboResponse.parse(chatCompletionResponseTextToJSON).data.choices[0]?.message.function_call?.arguments;
 
-  console.log('User story JSON:', userStory);
+  // console.log('User story JSON:', userStory);
 
   const props = Object.keys(JSON.parse(storyExampleJSON)).join(", ");
 
@@ -221,7 +221,7 @@ export async function setData(data: FormData) {
       //{ "role": "system", "content": `These are the rules you should follow: ${rules}` },
       {
         "role": "system", "content": [
-          'You are given a user story in JSON format.',
+          'You are given a user story in text format.',
           'I want to rewrite the user story to be more understandable and make it follow the rules.',
           'You should generate a list of suggestions for the user story.',
           `"property_reference" should contain one of the properties from the userStory (${props}).`,
@@ -232,13 +232,14 @@ export async function setData(data: FormData) {
           '"change_importance" value of 7 is very important, while 1 is not important at all.',
           'If you think that creator of user story should be notified about this change, set "should_be_changed" to true.',
           'If you think that creator of user story should not be notified about this change, set "should_be_changed" to false.',
+          'The "new_content" property should exclusively consist of suggested content intended to replace the existing content, rather than providing suggestions regarding user actions concerning the content.',
           //'Rewrite the content of given user story property and save it to "proposed_change" if "should_be_changed" is true.',
           'Set "proposed_change_reason" to the reason why you think that this change should be made.',
           'Suggestion with "property_reference" set to "story_description" should follow "As a... I want... So that..." format.',
         ].join(" ")
       },
       // { "role": "system", "content": `You are given a user story in JSON format. property_reference should contain one of the properties from the userStory (${props}). Generate new content in proposed_change.` },
-      { "role": "user", "content": `Find errors and give me suggestion for following user story written in json: ${userStory}` }
+      { "role": "user", "content": `Find errors and give me suggestion for following user story written in json: ${story}` }
     ],
     functions: [{ "name": "lint_user_story", "parameters": schema }],
     function_call: { "name": "lint_user_story" },
